@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "amqplib": "^0.10.5",
+    "ethers": "^6.13.5",
+    "tronweb": "^6.0.1"
+  }
+}
