@@ -1,13 +1,10 @@
 const express = require("express");
-import { walletService } from "./logic/services/walletService";
 
 const app = express();
 
-app.express.use(express.json());
-const _walletService = new walletService();
+app.use(express.json());
 
-app.post("/wallets", async (req: any, res: any) => {
-  const { wallet, hash } = req.body;
-  await _walletService.addWallet(wallet, hash);
-  res.status(200).send();
+const PORT = `${process.env.PORT}`;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}/api`);
 });

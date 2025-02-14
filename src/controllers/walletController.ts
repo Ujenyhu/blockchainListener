@@ -1,25 +1,27 @@
-import { iWalletService } from "../logic/interfaces/iWalletService";
+import { IWalletService } from "../logic/interfaces/IWalletService";
+import { WalletRequest } from "../dtos/walletRequest";
 
 export class walletController {
-  private walletService: iWalletService;
+  private walletService: IWalletService;
 
-  constructor(_walletService: iWalletService) {
+  constructor(_walletService: IWalletService) {
     this.walletService = _walletService;
   }
 
-  async addWallet(wallet: string, hash: string) {
-    await this.walletService.addWallet(wallet, hash);
+  async addWallet(request: Request, response: Response): Promise<void> {
+    const requestBody: WalletRequest = request.body;
+    await this.walletService.addWallet(requestBody);
   }
 
-  async removeWallet(wallet: string, hash: string) {
-    await this.walletService.removeWallet(wallet, hash);
+  async removeWallet(request: Request, response: Response): Promise<void> {
+    await this.walletService.removeWallet(req);
   }
 
-  async getWallets(hash: string): Promise<string[]> {
-    return await this.walletService.getWallets(hash);
+  async getWallets(network: string): Promise<string[]> {
+    return await this.walletService.getWallets(network);
   }
 
-  async isWalletTracked(wallet: string, hash: string): Promise<boolean> {
-    return await this.walletService.isWalletTracked(wallet, hash);
+  async isWalletTracked(wallet: string, network: string): Promise<boolean> {
+    return await this.walletService.isWalletTracked(wallet, network);
   }
 }

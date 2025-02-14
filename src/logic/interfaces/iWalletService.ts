@@ -1,6 +1,9 @@
-export interface iWalletService {
-  addWallet(wallet: string, hash: string): Promise<void>;
-  removeWallet(wallet: string, hash: string): Promise<void>;
-  getWallets(hash: string): Promise<string[]>;
-  isWalletTracked(wallet: string, hash: string): Promise<boolean>;
+import { WalletRequest } from "../../dtos/walletRequest";
+
+export interface IWalletService {
+  addWallet(request: WalletRequest): Promise<void>;
+  removeWallet(request: WalletRequest): Promise<void>;
+  getWallets(network: string): Promise<string[]>;
+  isWalletTracked(request: WalletRequest): Promise<boolean>;
+  IsValidWallet(request: WalletRequest): Promise<boolean>;
 }
