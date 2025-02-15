@@ -12,3 +12,4 @@ exports.WalletRequest = WalletRequest;
 //   walletAddress: string;
 //   networkType: string;
 // }
+//# sourceMappingURL=walletRequest.js.map

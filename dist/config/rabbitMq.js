@@ -34,3 +34,4 @@ exports.connectRabbitMQ = connectRabbitMQ;
 //     );
 //   }
 // };
+//# sourceMappingURL=rabbitMq.js.map

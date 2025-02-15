@@ -20,7 +20,7 @@ const responseBase_1 = __importDefault(require("../../dtos/responseBase"));
 const { TronWeb } = require("tronweb");
 class WalletService {
     constructor() {
-        this.ethProvider = new ethers_1.ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
+        this.ethProvider = new ethers_1.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
         this.tronProvider = new TronWeb({
             fullHost: "https://api.shasta.trongrid.io",
             headers: { "TRON-PRO-API-KEY": process.env.TRON_API_KEY },
@@ -70,7 +70,7 @@ class WalletService {
     }
     isValidEthAddress(walletAddress) {
         return __awaiter(this, void 0, void 0, function* () {
-            return ethers_1.ethers.isAddress(walletAddress);
+            return (0, ethers_1.isAddress)(walletAddress);
         });
     }
     isValidTronAddress(walletAddress) {
@@ -96,3 +96,4 @@ class WalletService {
     }
 }
 exports.WalletService = WalletService;
+//# sourceMappingURL=WalletService.js.map

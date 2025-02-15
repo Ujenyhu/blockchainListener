@@ -3,7 +3,7 @@ import { WalletService } from "./logic/services/WalletService";
 import { walletController } from "./controllers/walletController";
 import { validateAddressMiddleware } from "./Middlewares/validateAddressMiddleware";
 
-const router = Router();
+export const router = Router();
 const walletService = new WalletService();
 const _walletController = new walletController(walletService);
 
@@ -13,5 +13,3 @@ router.post(
   validateAddressMiddleware(walletService),
   _walletController.addWallet
 );
-
-export default router;

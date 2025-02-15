@@ -9,3 +9,4 @@ class ResponseBase {
     }
 }
 exports.default = ResponseBase;
+//# sourceMappingURL=responseBase.js.map

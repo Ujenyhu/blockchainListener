@@ -50,3 +50,4 @@ VarHelper.Networks = Networks;
 VarHelper.ResponseStatus = ResponseStatus;
 VarHelper.HttpStatusCodes = HttpStatusCodes;
 exports.default = VarHelper;
+//# sourceMappingURL=varHelper.js.map

@@ -2,16 +2,16 @@ import { redis } from "../../config/redis";
 import { IWalletService } from "../interfaces/IWalletService";
 import VarHelper from "../../helpers/varHelper";
 import { WalletRequest } from "../../dtos/walletRequest";
-import { ethers } from "ethers";
+import { isAddress, JsonRpcProvider } from "ethers";
 import ResponseBase from "../../dtos/responseBase";
 const { TronWeb } = require("tronweb");
 
 export class WalletService implements IWalletService {
-  private readonly ethProvider: ethers.JsonRpcProvider;
+  private readonly ethProvider: JsonRpcProvider;
   private readonly tronProvider: any;
 
   constructor() {
-    this.ethProvider = new ethers.JsonRpcProvider(
+    this.ethProvider = new JsonRpcProvider(
       `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
     );
 
@@ -77,7 +77,7 @@ export class WalletService implements IWalletService {
   }
 
   private async isValidEthAddress(walletAddress: string): Promise<boolean> {
-    return ethers.isAddress(walletAddress);
+    return isAddress(walletAddress);
   }
 
   private async isValidTronAddress(walletAddress: string): Promise<boolean> {
