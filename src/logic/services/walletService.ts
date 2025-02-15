@@ -85,7 +85,7 @@ export class WalletService implements IWalletService {
   }
 
   public async IsValidWallet(request: WalletRequest): Promise<boolean> {
-    if (request.networkType === VarHelper.Networks.ETHEUREM) {
+    if (request.networkType === VarHelper.Networks.ETHEREUM) {
       return await this.isValidEthAddress(request.walletAddress);
     } else if (request.networkType === VarHelper.Networks.TRON) {
       return await this.isValidTronAddress(request.walletAddress);
@@ -94,7 +94,7 @@ export class WalletService implements IWalletService {
   }
 
   private getRedisHash(network: string): string {
-    return network === VarHelper.Networks.ETHEUREM
+    return network === VarHelper.Networks.ETHEREUM
       ? "eth_wallets"
       : "tron_wallets";
   }

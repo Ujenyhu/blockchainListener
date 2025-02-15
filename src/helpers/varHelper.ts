@@ -20,7 +20,7 @@ enum TokenDecimals {
 }
 
 enum Networks {
-  ETHEUREM = "ETHEUREM",
+  ETHEREUM = "ETHEREUM",
   TRON = "TRON",
 }
 

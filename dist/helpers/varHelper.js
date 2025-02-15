@@ -23,7 +23,7 @@ var TokenDecimals;
 })(TokenDecimals || (TokenDecimals = {}));
 var Networks;
 (function (Networks) {
-    Networks["ETHEUREM"] = "ETHEUREM";
+    Networks["ETHEREUM"] = "ETHEREUM";
     Networks["TRON"] = "TRON";
 })(Networks || (Networks = {}));
 var ResponseStatus;

@@ -80,7 +80,7 @@ class WalletService {
     }
     IsValidWallet(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (request.networkType === varHelper_1.default.Networks.ETHEUREM) {
+            if (request.networkType === varHelper_1.default.Networks.ETHEREUM) {
                 return yield this.isValidEthAddress(request.walletAddress);
             }
             else if (request.networkType === varHelper_1.default.Networks.TRON) {
@@ -90,7 +90,7 @@ class WalletService {
         });
     }
     getRedisHash(network) {
-        return network === varHelper_1.default.Networks.ETHEUREM
+        return network === varHelper_1.default.Networks.ETHEREUM
             ? "eth_wallets"
             : "tron_wallets";
     }
