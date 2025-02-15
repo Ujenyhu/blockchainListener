@@ -24,9 +24,26 @@ enum Networks {
   TRON = "TRON",
 }
 
-export class VarHelper {
+enum ResponseStatus {
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
+}
+
+enum HttpStatusCodes {
+  OK = 200,
+  Created = 201,
+  BadRequest = 400,
+  Unauthorized = 401,
+  Forbidden = 403,
+  NotFound = 404,
+  InternalServerError = 500,
+}
+
+export default class VarHelper {
   static TokenSymbols = TokenSymbols;
   static TokenContracts = TokenContracts;
   static TokenDecimals = TokenDecimals;
   static Networks = Networks;
+  static ResponseStatus = ResponseStatus;
+  static HttpStatusCodes = HttpStatusCodes;
 }

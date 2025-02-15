@@ -7,3 +7,8 @@ export class WalletRequest {
     this.networkType = networkType;
   }
 }
+
+// export interface WalletRequest {
+//   walletAddress: string;
+//   networkType: string;
+// }

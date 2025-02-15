@@ -1,7 +1,7 @@
 require("dotenv").config();
 import { createClient } from "redis";
 
-const redis = createClient({ url: process.env.REDIS_URL });
+export const redis = createClient({ url: process.env.REDIS_URL });
 
 async () => {
   try {
@@ -11,5 +11,3 @@ async () => {
     console.error("Redis Connection Error:", error);
   }
 };
-
-export default redis;

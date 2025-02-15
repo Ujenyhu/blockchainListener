@@ -1,17 +1,17 @@
-const { Router } = require("express");
-const IWalletService = require("./logic/interfaces/IWalletService");
-const walletController = require("./controllers/walletController");
-const validateAddressMiddleware = require("./Middlewares/validateAddressMiddleware");
+import Router from "express";
+import { WalletService } from "./logic/services/WalletService";
+import { walletController } from "./controllers/walletController";
+import { validateAddressMiddleware } from "./Middlewares/validateAddressMiddleware";
 
-const routers = new Router();
-const walletService = new IWalletService();
-const controller = new walletController(walletService);
+const router = Router();
+const walletService = new WalletService();
+const _walletController = new walletController(walletService);
 
 //Wallet routes
-routers.post(
+router.post(
   "/wallet",
   validateAddressMiddleware(walletService),
-  controller.addWallet
+  _walletController.addWallet
 );
 
-export default routers;
+export default router;

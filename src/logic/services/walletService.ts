@@ -1,9 +1,10 @@
-import redis from "../../config/redis";
+import { redis } from "../../config/redis";
 import { IWalletService } from "../interfaces/IWalletService";
-import { VarHelper } from "../../helpers/varHelper";
+import VarHelper from "../../helpers/varHelper";
 import { WalletRequest } from "../../dtos/walletRequest";
 import { ethers } from "ethers";
-const TronWeb = require("tronweb");
+import ResponseBase from "../../dtos/responseBase";
+const { TronWeb } = require("tronweb");
 
 export class WalletService implements IWalletService {
   private readonly ethProvider: ethers.JsonRpcProvider;
@@ -13,26 +14,61 @@ export class WalletService implements IWalletService {
     this.ethProvider = new ethers.JsonRpcProvider(
       `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
     );
+
     this.tronProvider = new TronWeb({
       fullHost: "https://api.shasta.trongrid.io",
       headers: { "TRON-PRO-API-KEY": process.env.TRON_API_KEY },
     });
   }
 
-  async addWallet(request: WalletRequest) {
-    const hash = await this.getRedisHash(request.networkType);
-    await redis.hSet(hash, request.walletAddress, "1");
-    console.log(`Added wallet ${request.walletAddress} to tracking list`);
+  async addWallet(request: WalletRequest): Promise<any> {
+    try {
+      const hash = await this.getRedisHash(request.networkType);
+      await redis.hSet(hash, request.walletAddress, "1");
+      console.log(`Added wallet ${request.walletAddress} to tracking list`);
+
+      return new ResponseBase(
+        VarHelper.HttpStatusCodes.OK,
+        VarHelper.ResponseStatus.SUCCESS,
+        "Wallet added successfully"
+      );
+    } catch (error: any) {
+      return new ResponseBase(
+        VarHelper.HttpStatusCodes.InternalServerError,
+        VarHelper.ResponseStatus.ERROR,
+        error?.message,
+        error
+      );
+    }
   }
 
-  async removeWallet(request: WalletRequest) {
-    const hash = await this.getRedisHash(request.networkType);
-    await redis.hDel(hash, request.walletAddress);
+  async removeWallet(request: WalletRequest): Promise<any> {
+    try {
+      const hash = await this.getRedisHash(request.networkType);
+      await redis.hDel(hash, request.walletAddress);
+
+      return new ResponseBase(
+        VarHelper.HttpStatusCodes.OK,
+        VarHelper.ResponseStatus.SUCCESS,
+        "Wallet removed successfully"
+      );
+    } catch (error: any) {
+      return new ResponseBase(
+        VarHelper.HttpStatusCodes.InternalServerError,
+        VarHelper.ResponseStatus.ERROR,
+        error?.message,
+        error
+      );
+    }
   }
 
   async getWallets(network: string): Promise<string[]> {
-    const hash = await this.getRedisHash(network);
-    return Object.keys(await redis.hGetAll(hash));
+    try {
+      const hash = await this.getRedisHash(network);
+      return Object.keys(await redis.hGetAll(hash));
+    } catch (error: any) {
+      return [];
+    }
   }
 
   async isWalletTracked(request: WalletRequest): Promise<boolean> {
