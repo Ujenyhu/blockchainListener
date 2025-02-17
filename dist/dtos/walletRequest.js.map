@@ -1,1 +1,0 @@
-{"version":3,"file":"walletRequest.js","sourceRoot":"","sources":["../../src/dtos/walletRequest.ts"],"names":[],"mappings":";;;AAAA,MAAa,aAAa;IAIxB,YAAY,aAAqB,EAAE,WAAmB;QACpD,IAAI,CAAC,aAAa,GAAG,aAAa,CAAC;QACnC,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACjC,CAAC;CACF;AARD,sCAQC;AAED,mCAAmC;AACnC,2BAA2B;AAC3B,yBAAyB;AACzB,IAAI"}
