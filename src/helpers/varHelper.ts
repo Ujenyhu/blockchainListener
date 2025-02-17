@@ -39,6 +39,11 @@ enum HttpStatusCodes {
   InternalServerError = 500,
 }
 
+enum TrackingHash {
+  Eth = "eth_wallets",
+  Tron = "tron_wallets",
+}
+
 export default class VarHelper {
   static TokenSymbols = TokenSymbols;
   static TokenContracts = TokenContracts;
@@ -46,4 +51,5 @@ export default class VarHelper {
   static Networks = Networks;
   static ResponseStatus = ResponseStatus;
   static HttpStatusCodes = HttpStatusCodes;
+  static TrackingHash = TrackingHash;
 }

@@ -19,12 +19,16 @@ const ethers_1 = require("ethers");
 const responseBase_1 = __importDefault(require("../../dtos/responseBase"));
 const { TronWeb } = require("tronweb");
 class WalletService {
+    // private readonly ethProvider: JsonRpcProvider;
+    // private readonly tronProvider: any;
     constructor() {
-        this.ethProvider = new ethers_1.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
-        this.tronProvider = new TronWeb({
-            fullHost: "https://api.shasta.trongrid.io",
-            headers: { "TRON-PRO-API-KEY": process.env.TRON_API_KEY },
-        });
+        // this.ethProvider = new JsonRpcProvider(
+        //   `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
+        // );
+        // this.tronProvider = new TronWeb({
+        //   fullHost: "https://api.shasta.trongrid.io",
+        //   headers: { "TRON-PRO-API-KEY": process.env.TRON_API_KEY },
+        // });
     }
     addWallet(request) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -62,10 +66,13 @@ class WalletService {
             }
         });
     }
-    isWalletTracked(request) {
+    // async isWalletTracked(request: WalletRequest): Promise<boolean> {
+    //   const hash = await this.getRedisHash(request.networkType);
+    //   return await redis.hExists(hash, request.walletAddress);
+    // }
+    isWalletTracked(tracking_hash, walletAddress) {
         return __awaiter(this, void 0, void 0, function* () {
-            const hash = yield this.getRedisHash(request.networkType);
-            return yield redis_1.redis.hExists(hash, request.walletAddress);
+            return yield redis_1.redis.hExists(tracking_hash, walletAddress);
         });
     }
     isValidEthAddress(walletAddress) {
@@ -91,8 +98,8 @@ class WalletService {
     }
     getRedisHash(network) {
         return network === varHelper_1.default.Networks.ETHEREUM
-            ? "eth_wallets"
-            : "tron_wallets";
+            ? varHelper_1.default.TrackingHash.Eth
+            : varHelper_1.default.TrackingHash.Tron;
     }
 }
 exports.WalletService = WalletService;

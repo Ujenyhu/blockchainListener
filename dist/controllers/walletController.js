@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.walletController = void 0;
-class walletController {
+exports.WalletController = void 0;
+class WalletController {
     constructor(_walletService) {
         this.walletService = _walletService;
     }
@@ -18,12 +18,13 @@ class walletController {
         return __awaiter(this, void 0, void 0, function* () {
             const requestBody = request.body;
             const result = yield this.walletService.addWallet(requestBody);
-            response.status(result.status).json(result);
+            response.status(result.statusCode).json(result);
         });
     }
     removeWallet(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.walletService.removeWallet(request.body);
+            const result = yield this.walletService.removeWallet(request.body);
+            response.status(result.statusCode).json(result);
         });
     }
     getWallets(network) {
@@ -31,11 +32,6 @@ class walletController {
             return yield this.walletService.getWallets(network);
         });
     }
-    isWalletTracked(request) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.walletService.isWalletTracked(request);
-        });
-    }
 }
-exports.walletController = walletController;
+exports.WalletController = WalletController;
 //# sourceMappingURL=walletController.js.map

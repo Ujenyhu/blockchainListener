@@ -41,6 +41,11 @@ var HttpStatusCodes;
     HttpStatusCodes[HttpStatusCodes["NotFound"] = 404] = "NotFound";
     HttpStatusCodes[HttpStatusCodes["InternalServerError"] = 500] = "InternalServerError";
 })(HttpStatusCodes || (HttpStatusCodes = {}));
+var TrackingHash;
+(function (TrackingHash) {
+    TrackingHash["Eth"] = "eth_wallets";
+    TrackingHash["Tron"] = "tron_wallets";
+})(TrackingHash || (TrackingHash = {}));
 class VarHelper {
 }
 VarHelper.TokenSymbols = TokenSymbols;
@@ -49,5 +54,6 @@ VarHelper.TokenDecimals = TokenDecimals;
 VarHelper.Networks = Networks;
 VarHelper.ResponseStatus = ResponseStatus;
 VarHelper.HttpStatusCodes = HttpStatusCodes;
+VarHelper.TrackingHash = TrackingHash;
 exports.default = VarHelper;
 //# sourceMappingURL=varHelper.js.map

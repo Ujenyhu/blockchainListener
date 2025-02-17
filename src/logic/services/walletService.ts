@@ -7,18 +7,17 @@ import ResponseBase from "../../dtos/responseBase";
 const { TronWeb } = require("tronweb");
 
 export class WalletService implements IWalletService {
-  private readonly ethProvider: JsonRpcProvider;
-  private readonly tronProvider: any;
+  // private readonly ethProvider: JsonRpcProvider;
+  // private readonly tronProvider: any;
 
   constructor() {
-    this.ethProvider = new JsonRpcProvider(
-      `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
-    );
-
-    this.tronProvider = new TronWeb({
-      fullHost: "https://api.shasta.trongrid.io",
-      headers: { "TRON-PRO-API-KEY": process.env.TRON_API_KEY },
-    });
+    // this.ethProvider = new JsonRpcProvider(
+    //   `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
+    // );
+    // this.tronProvider = new TronWeb({
+    //   fullHost: "https://api.shasta.trongrid.io",
+    //   headers: { "TRON-PRO-API-KEY": process.env.TRON_API_KEY },
+    // });
   }
 
   async addWallet(request: WalletRequest): Promise<any> {
@@ -71,9 +70,16 @@ export class WalletService implements IWalletService {
     }
   }
 
-  async isWalletTracked(request: WalletRequest): Promise<boolean> {
-    const hash = await this.getRedisHash(request.networkType);
-    return await redis.hExists(hash, request.walletAddress);
+  // async isWalletTracked(request: WalletRequest): Promise<boolean> {
+  //   const hash = await this.getRedisHash(request.networkType);
+  //   return await redis.hExists(hash, request.walletAddress);
+  // }
+
+  async isWalletTracked(
+    tracking_hash: string,
+    walletAddress: string
+  ): Promise<boolean> {
+    return await redis.hExists(tracking_hash, walletAddress);
   }
 
   private async isValidEthAddress(walletAddress: string): Promise<boolean> {
@@ -95,7 +101,7 @@ export class WalletService implements IWalletService {
 
   private getRedisHash(network: string): string {
     return network === VarHelper.Networks.ETHEREUM
-      ? "eth_wallets"
-      : "tron_wallets";
+      ? VarHelper.TrackingHash.Eth
+      : VarHelper.TrackingHash.Tron;
   }
 }
