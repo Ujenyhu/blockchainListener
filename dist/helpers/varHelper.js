@@ -9,10 +9,10 @@ var TokenSymbols;
 })(TokenSymbols || (TokenSymbols = {}));
 var TokenContracts;
 (function (TokenContracts) {
-    TokenContracts["ETH_USDT_CONTRACT"] = "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852";
-    TokenContracts["ETH_USDC_CONTRACT"] = "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852";
-    TokenContracts["TRON_USDT_CONTRACT"] = "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852";
-    TokenContracts["TRON_USDC_CONTRACT"] = "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852";
+    TokenContracts["ETH_USDT_CONTRACT"] = "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0";
+    TokenContracts["ETH_USDC_CONTRACT"] = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
+    TokenContracts["TRON_USDT_CONTRACT"] = "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs";
+    // TRON_USDC_CONTRACT = "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852",
 })(TokenContracts || (TokenContracts = {}));
 var TokenDecimals;
 (function (TokenDecimals) {

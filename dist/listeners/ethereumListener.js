@@ -21,7 +21,7 @@ class EthereumListener {
             "event Transfer(address indexed from, address indexed to, uint256 value)",
         ];
         this.walletService = _walletService;
-        this.ethProvider = new ethers_1.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
+        this.ethProvider = new ethers_1.WebSocketProvider(`wss://sepolia.infura.io/ws/v3/${process.env.INFURA_API_KEY}`);
     }
     listenForEthDeposit() {
         return __awaiter(this, void 0, void 0, function* () { });
@@ -31,9 +31,14 @@ class EthereumListener {
     }
     listenForUSDTDeposit() {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("Getting ready");
+            const network = yield this.ethProvider.getNetwork();
+            console.log("✅ Connected to Ethereum network:", network);
             const contract = new ethers_1.ethers.Contract(varHelper_1.default.TokenContracts.ETH_USDT_CONTRACT, this.ERC20_ABI, this.ethProvider);
-            contract.addListener("Transfer", (from, to, value, event) => __awaiter(this, void 0, void 0, function* () {
+            contract.on("Transfer", (from, to, value, event) => __awaiter(this, void 0, void 0, function* () {
+                console.log("starting listener");
                 const isWallet = yield this.walletService.isWalletTracked(varHelper_1.default.TrackingHash.Eth, to);
+                console.log("gotten wallet");
                 if (!isWallet) {
                     console.log("not involved");
                 }
