@@ -1,4 +1,3 @@
-require("dotenv").config();
 import amqp from "amqplib";
 
 const DEPOSIT_QUEUE = "deposit_events";

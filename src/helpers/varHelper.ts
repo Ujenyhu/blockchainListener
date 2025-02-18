@@ -44,6 +44,10 @@ enum TrackingHash {
   Tron = "tron_wallets",
 }
 
+enum QueueNames {
+  DEPOSIT_QUEUE = "DEPOSIT_QUEUE",
+}
+
 export default class VarHelper {
   static TokenSymbols = TokenSymbols;
   static TokenContracts = TokenContracts;
