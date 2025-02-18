@@ -9,7 +9,9 @@ app.use(express.json());
 app.use("/api", router);
 
 const ethereumListener = new EthereumListener(walletService);
-ethereumListener.listenForUSDTDeposit();
+ethereumListener.listenForEthDeposit();
+//ethereumListener.listenForUSDTDeposit();
+//ethereumListener.listenForERC20Deposit();
 
 const PORT = `${process.env.PORT}` || 5000;
 app.listen(PORT, () => {
