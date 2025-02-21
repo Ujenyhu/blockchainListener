@@ -1,6 +1,8 @@
 import { ethers, WebSocketProvider, JsonRpcProvider } from "ethers";
 import VarHelper from "../helpers/varHelper";
 import { IWalletService } from "../logic/interfaces/IWalletService";
+import { publishDepositEvent } from "../config/rabbitMq";
+import { TransactionEvent } from "../dtos/eventMessage";
 
 export class EthereumListener {
   private readonly ethProvider: WebSocketProvider;
@@ -23,21 +25,31 @@ export class EthereumListener {
 
   async listenForEthDeposit() {
     this.ethProvider.on("pending", async (transactionHash: string) => {
-      console.log("starting");
-
       const transaction = await this.ethProvider.getTransaction(
         transactionHash
       );
       if (!transaction || !transaction.to) return;
 
-      const isWallet = await this.walletService.isWalletTracked(
-        VarHelper.TrackingHash.Eth,
-        transaction.to
-      );
+      console.log(transaction);
+      //   const isWallet = await this.walletService.isWalletTracked(
+      //     VarHelper.TrackingHash.Eth,
+      //     transaction.to
+      //   );
 
-      if (!isWallet) {
-        console.log("not involved");
-      }
+      //   if (!isWallet) {
+      //     return;
+      //   }
+
+      await publishDepositEvent(
+        new TransactionEvent(
+          VarHelper.Networks.ETHEREUM,
+          transaction.from,
+          transaction.to,
+          ethers.formatUnits(transaction.value, VarHelper.TokenDecimals.ETH),
+          VarHelper.TokenSymbols.ETH
+        ),
+        VarHelper.QueueRoutingKeys.ETH_NATIVE_KEY
+      );
     });
   }
 
@@ -47,36 +59,35 @@ export class EthereumListener {
   }
 
   async listenForUSDTDeposit() {
-    console.log("Getting ready");
-
-    const network = await this.ethProvider.getNetwork();
-    console.log("✅ Connected to Ethereum network:", network);
-
     const contract = new ethers.Contract(
       VarHelper.TokenContracts.ETH_USDT_CONTRACT,
       this.ERC20_ABI,
       this.ethProvider
     );
     contract.on("Transfer", async (from, to, value, event) => {
-      console.log("starting listener");
-
       const isWallet = await this.walletService.isWalletTracked(
         VarHelper.TrackingHash.Eth,
         to
       );
-      console.log("gotten wallet");
 
       if (!isWallet) {
-        console.log("not involved");
+        return;
       }
+      await publishDepositEvent(
+        new TransactionEvent(
+          VarHelper.Networks.ETHEREUM,
+          from,
+          to,
+          ethers.formatUnits(value, VarHelper.TokenDecimals.USDT),
+          VarHelper.TokenSymbols.USDT
+        ),
+        VarHelper.QueueRoutingKeys.ETH_USDT_KEY
+      );
     });
   }
 
   async listenForUSDCDeposit() {
-    console.log("Getting ready");
-
     const network = await this.ethProvider.getNetwork();
-    console.log("✅ Connected to Ethereum network:", network);
 
     const contract = new ethers.Contract(
       VarHelper.TokenContracts.ETH_USDC_CONTRACT,
@@ -84,17 +95,24 @@ export class EthereumListener {
       this.ethProvider
     );
     contract.on("Transfer", async (from, to, value, event) => {
-      console.log("starting listener");
-
       const isWallet = await this.walletService.isWalletTracked(
         VarHelper.TrackingHash.Eth,
         to
       );
-      console.log("gotten wallet");
 
       if (!isWallet) {
-        console.log("not involved");
+        return;
       }
+      await publishDepositEvent(
+        new TransactionEvent(
+          VarHelper.Networks.ETHEREUM,
+          from,
+          to,
+          ethers.formatUnits(value, VarHelper.TokenDecimals.USDC),
+          VarHelper.TokenSymbols.USDC
+        ),
+        VarHelper.QueueRoutingKeys.ETH_USDC_KEY
+      );
     });
   }
 }

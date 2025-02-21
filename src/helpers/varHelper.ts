@@ -45,7 +45,15 @@ enum TrackingHash {
 }
 
 enum QueueNames {
-  DEPOSIT_QUEUE = "DEPOSIT_QUEUE",
+  DEPOSIT_ETH_NATIVE = "Deposit.Ethereum.Eth",
+  DEPOSIT_ETH_USDT = "Deposit.Ethereum.Usdt",
+  DEPOSIT_ETH_USDC = "Deposit.Ethereum.Usdc",
+}
+
+enum QueueRoutingKeys {
+  ETH_NATIVE_KEY = "Ethereum.Eth",
+  ETH_USDT_KEY = "Ethereum.Usdt",
+  ETH_USDC_KEY = "Ethereum.Usdc",
 }
 
 export default class VarHelper {
@@ -56,4 +64,6 @@ export default class VarHelper {
   static ResponseStatus = ResponseStatus;
   static HttpStatusCodes = HttpStatusCodes;
   static TrackingHash = TrackingHash;
+  static QueueNames = QueueNames;
+  static QueueRoutingKeys = QueueRoutingKeys;
 }

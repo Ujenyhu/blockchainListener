@@ -1,11 +1,12 @@
 const express = require("express");
 import { EthereumListener } from "./listeners/ethereumListener";
 import router, { walletService } from "./routes";
+import { connectRabbitMQ } from "./config/rabbitMq";
 
 const app = express();
 
 app.use(express.json());
-
+//connectRabbitMQ();
 app.use("/api", router);
 
 const ethereumListener = new EthereumListener(walletService);
